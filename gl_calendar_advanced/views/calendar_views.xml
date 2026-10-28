@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="gl_calendar_event_form_inherit" model="ir.ui.view">
+        <field name="name">gl.calendar.event.form.inherit</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet//group[1]" position="inside">
+                <group string="Driving school schedule">
+                    <field name="gl_kind"/>
+                    <field name="gl_instructor_id"/>
+                    <field name="gl_lesson_state" invisible="gl_kind != 'lesson'"/>
+                    <field name="gl_payment_state" invisible="gl_kind != 'lesson'"/>
+                    <button name="action_gl_open_copy_wizard" type="object"
+                            string="Copy / Repeat" class="btn-secondary"
+                            invisible="not id"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+    <record id="gl_calendar_event_calendar_inherit" model="ir.ui.view">
+        <field name="name">gl.calendar.event.calendar.inherit</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_calendar"/>
+        <field name="arch" type="xml">
+            <xpath expr="//calendar" position="attributes">
+                <attribute name="js_class">gl_advanced_calendar</attribute>
+            </xpath>
+            <xpath expr="//calendar" position="inside">
+                <field name="gl_kind" invisible="1"/>
+                <field name="gl_lesson_state" invisible="1"/>
+                <field name="gl_payment_state" invisible="1"/>
+                <field name="gl_instructor_id" invisible="1"/>
+                <field name="gl_color" invisible="1"/>
+                <field name="gl_visual_color" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="gl_res_users_form_inherit" model="ir.ui.view">
+        <field name="name">gl.res.users.form.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="GL Calendar">
+                    <field name="gl_calendar_color" groups="base.group_system"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
