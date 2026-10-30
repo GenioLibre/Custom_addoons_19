@@ -46,7 +46,10 @@ class CalendarEvent(models.Model):
                     ("partner_id", "in", event.partner_ids.ids),
                     ("active", "=", True),
                 ])
-                if len(attendees) == 1:
+                non_organizers = attendees - event.user_id
+                if len(non_organizers) == 1:
+                    instructor = non_organizers
+                elif len(attendees) == 1:
                     instructor = attendees
             if not instructor:
                 instructor = event.user_id
