@@ -24,9 +24,34 @@ class CalendarEvent(models.Model):
         "res.users", string="Instructor", index=True,
     )
     gl_color = fields.Char(
-        string="Instructor HEX color", related="gl_instructor_id.gl_calendar_color",
+        string="Instructor HEX color", compute="_compute_gl_color",
         readonly=True,
     )
+
+    @api.depends(
+        "gl_instructor_id", "gl_instructor_id.gl_calendar_color",
+        "partner_ids", "user_id", "user_id.gl_calendar_color",
+    )
+    def _compute_gl_color(self):
+        """Explicit instructor > unique attendee user > event organizer.
+
+        Legacy lessons often store instructors as attendees instead of using
+        gl_instructor_id. Avoid choosing arbitrarily when several attendee
+        users match: fall back to the organizer until an instructor is set.
+        """
+        for event in self:
+            instructor = event.gl_instructor_id
+            if not instructor and event.partner_ids:
+                attendees = self.env["res.users"].search([
+                    ("partner_id", "in", event.partner_ids.ids),
+                    ("active", "=", True),
+                ])
+                if len(attendees) == 1:
+                    instructor = attendees
+            if not instructor:
+                instructor = event.user_id
+            color = instructor.gl_calendar_color if instructor else False
+            event.gl_color = color if color and len(color) == 7 and color.startswith("#") else False
     gl_visual_color = fields.Char(
         string="Status HEX color", compute="_compute_gl_visual_color",
     )
