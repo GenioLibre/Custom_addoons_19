@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gl_calendar_copy_wizard" model="ir.ui.view">
+        <field name="name">gl.calendar.copy.wizard.form</field>
+        <field name="model">gl.calendar.copy.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Copy / Repeat schedule">
+                <group>
+                    <field name="source_event_id" readonly="1"/>
+                    <field name="target_date"/>
+                    <field name="repeat_weekly"/>
+                    <field name="repeat_count" invisible="not repeat_weekly"/>
+                </group>
+                <group string="Weekdays" invisible="not repeat_weekly" col="7">
+                    <field name="mon"/><field name="tue"/><field name="wed"/>
+                    <field name="thu"/><field name="fri"/><field name="sat"/>
+                    <field name="sun"/>
+                </group>
+                <footer>
+                    <button string="Create schedules" name="action_duplicate" type="object" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>
