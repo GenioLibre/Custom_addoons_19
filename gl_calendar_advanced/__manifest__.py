@@ -1,7 +1,7 @@
 {
     "name": "GL Advanced Calendar",
     "summary": "Instructor scheduling, status colors and copy/block wizard",
-    "version": "19.0.1.0.0",
+    "version": "19.0.1.1.0",
     "category": "Productivity/Calendar",
     "author": "GenioLibre",
     "license": "LGPL-3",
@@ -14,6 +14,7 @@
     "assets": {
         "web.assets_backend": [
             "gl_calendar_advanced/static/src/js/calendar_view.js",
+            "gl_calendar_advanced/static/src/xml/calendar_popover.xml",
             "gl_calendar_advanced/static/src/scss/calendar.scss",
         ],
     },
