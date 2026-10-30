@@ -8,8 +8,8 @@ class ResUsers(models.Model):
     _inherit = "res.users"
 
     gl_calendar_color = fields.Char(
-        string="Instructor calendar color", default="#2563EB",
-        help="HEX color used for the instructor border in GL calendar.",
+        string="Color del instructor", default="#2563EB",
+        help="Haz clic en el selector de color para elegir el color del instructor.",
     )
 
     @api.constrains("gl_calendar_color")
