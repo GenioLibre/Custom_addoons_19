@@ -43,7 +43,9 @@
         <field name="arch" type="xml">
             <xpath expr="//sheet" position="inside">
                 <group string="GL Calendar">
-                    <field name="gl_calendar_color" groups="base.group_system"/>
+                    <field name="gl_calendar_color" widget="color"
+                           string="Color del instructor"
+                           groups="base.group_system"/>
                 </group>
             </xpath>
         </field>
